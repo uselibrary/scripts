@@ -11,7 +11,19 @@ echo -e ""
 if cat /etc/*-release | grep -Eqi "debian gnu/linux 9"; then
   echo "Debian-based"
 else
-  echo "Not supported version"
+  echo "Only Debain 9 is supported"
+  echo "***EXIT***"
+  sleep 1
+  exit
+fi
+if dpkg -l | grep -Eqi "nginx|apache"; then
+  echo "System is modified"
+  echo "***EXIT***"
+  sleep 1
+  exit
+fi
+if [ -d "/etc/v2ray/" ]; then
+  echo "System is modified"
   echo "***EXIT***"
   sleep 1
   exit
@@ -19,19 +31,24 @@ fi
 #satrt bbr
 if lsmod | grep -Eqi bbr; then
   echo "bbr is running"
-  echo "***EXIT***"
-  sleep 1
-  exit
-fi
-
-
-if dpkg -l | grep -Eqi "nginx"; then
-  echo "nginx installed"
 else
-  echo "no"
+  echo "set up bbr"
+  echo "net.core.default_qdisc=fq" >> /etc/sysctl.conf
+  echo "net.ipv4.tcp_congestion_control=bbr" >> /etc/sysctl.conf
+  sysctl -p
+  if lsmod | grep -Eqi bbr; then
+    echo "bbr is install"
+  else
+    echo "There is something wrong with bbr"
+    echo "please check your system"
+    echo "***EXIT***"
+    sleep 2
+    exit
+  fi
 fi
+#install nginx
 
-if ps –ef |grep -Eqi "v2ray"; then
+
 
 
 
@@ -43,16 +60,4 @@ if lsmod | grep -Eqi v2ray|nginx; then
   echo "bbr is running"
   echo "***EXIT***"
   exit
-fi
-#Prepare environment
-echo -e "Prepare environment."
-if cat /etc/*-release | grep -Eqi "centos-7"; then
-  echo "CentOS 7"
-  yum -y update && yum -y bc
-elif cat /etc/*-release | grep -Eqi "debian|ubuntu"; then
-  echo "Debian-based"
-  apt -y update && apt -y upgrade -y && apt -y install bc
-else
-  echo "Not supported version"
-  echo "***EXIT***"
 fi

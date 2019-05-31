@@ -64,3 +64,17 @@ echo "$mainkvstring < $bbrkernel"
 else
 echo "$mainkvstring > $bbrkernel"
 fi
+
+
+process=`ps aux | grep v2ray | grep -v grep`
+if ["$process" == "" ]; then
+  echo "NOT"
+else
+  echo "yes"
+fi
+
+if [ -d "/etc/v2ray/"]; then
+  echo "YES"
+else
+  echo "NOOOOO"
+fi
