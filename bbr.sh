@@ -64,6 +64,16 @@ else
   echo "net.ipv4.tcp_congestion_control=bbr" >> /etc/sysctl.conf
   sysctl -p
 fi
+#check bbr again
+if lsmod | grep -Eqi bbr; then
+  echo "bbr is installed and running"
+else
+  echo "There is something wrong with bbr"
+  echo "please check your system"
+  echo "***EXIT***"
+  sleep 2
+  exit
+fi
 #reboot
 echo ""
 seconds_left=5

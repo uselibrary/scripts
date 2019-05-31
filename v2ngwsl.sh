@@ -6,7 +6,23 @@ echo "    #                 set up v2ngwsl               #"
 echo "    #                  https://pa.ci               #"
 echo "    #                   Version 0.1                #"
 echo "    ################################################"
-#
+#check system
+echo -e ""
+if cat /etc/*-release | grep -Eqi "debian gnu/linux 9"; then
+  echo "Debian-based"
+else
+  echo "Not supported version"
+  echo "***EXIT***"
+  sleep 1
+  exit
+fi
+#satrt bbr
+if lsmod | grep -Eqi bbr; then
+  echo "bbr is running"
+  echo "***EXIT***"
+  sleep 1
+  exit
+fi
 
 
 if dpkg -l | grep -Eqi "nginx"; then
