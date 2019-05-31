@@ -9,7 +9,7 @@ echo "    ################################################"
 #check system
 echo -e ""
 if cat /etc/*-release | grep -Eqi "debian gnu/linux 9"; then
-  echo "Debian-based"
+  echo "Debian 9"
 else
   echo "Only Debain 9 is supported"
   echo "***EXIT***"
@@ -47,17 +47,6 @@ else
   fi
 fi
 #install nginx
-
-
-
-
-
-
-echo -e ""
-if lsmod | grep -Eqi v2ray|nginx; then
-  echo "the current kernel is:"
-  uname -r
-  echo "bbr is running"
-  echo "***EXIT***"
-  exit
-fi
+apt -y update && apt -y upgrade && apt -y install nginx
+systemctl enable nginx
+systemctl start nginx
