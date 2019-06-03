@@ -60,7 +60,7 @@ systemctl enable v2ray
 systemctl start v2ray
 #v2ray config
 mv config.json config.json.bak
-wget --no-check-certificate -O gv.sh https://raw.githubusercontent.com/uselibrary/scripts/master/config.json
+wget --no-check-certificate -O config.json https://raw.githubusercontent.com/uselibrary/scripts/master/config.json
 echo "View www.uuidgenerator.net to get a UUID"
 read -p "please input your UUID: " uuid
 sed "s/youruuid/${uuid}/g" config.json -i
@@ -74,8 +74,7 @@ systemctl start nginx
 #nginx config
 cd /etc/nginx/sites-available/
 mv default default.bak
-
-
+wget --no-check-certificate -O default https://raw.githubusercontent.com/uselibrary/scripts/master/default
 sed "s:location / {:location /${webpath}{:g" default -i
 
 
