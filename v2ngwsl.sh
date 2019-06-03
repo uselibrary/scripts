@@ -6,7 +6,8 @@ echo "    #                 set up v2ngwsl               #"
 echo "    #                  https://pa.ci               #"
 echo "    #                   Version 0.1                #"
 echo "    ################################################"
-#check system
+
+#check system debian 9
 echo -e ""
 if cat /etc/*-release | grep -Eqi "debian gnu/linux 9"; then
   echo "Debian 9"
@@ -18,16 +19,19 @@ else
 fi
 if dpkg -l | grep -Eqi "nginx|apache"; then
   echo "System is modified"
+  echo "Pure Debain 9 is needed"
   echo "***EXIT***"
   sleep 1
   exit
 fi
 if [ -d "/etc/v2ray/" ]; then
   echo "System is modified"
+  echo "Pure Debain 9 is needed"
   echo "***EXIT***"
   sleep 1
   exit
 fi
+
 #satrt bbr
 if lsmod | grep -Eqi bbr; then
   echo "bbr is running"
@@ -37,15 +41,23 @@ else
   echo "net.ipv4.tcp_congestion_control=bbr" >> /etc/sysctl.conf
   sysctl -p
   if lsmod | grep -Eqi bbr; then
-    echo "bbr is install"
+    echo "bbr is installed"
   else
     echo "There is something wrong with bbr"
     echo "please check your system"
     echo "***EXIT***"
-    sleep 2
+    sleep 1
     exit
   fi
 fi
+
+#install v2ray
+bash <(curl -L -s https://install.direct/go.sh)
+systemctl enable v2ray
+systemctl start v2ray
+#v2ray config
+mv config.json config.json.bak
+
 #install nginx
 apt -y update && apt -y upgrade && apt -y install nginx
 systemctl enable nginx
