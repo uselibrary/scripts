@@ -32,6 +32,9 @@ if [ -d "/etc/v2ray/" ]; then
   exit
 fi
 
+#update
+apt -y update && apt -y upgrade
+
 #satrt bbr
 if lsmod | grep -Eqi bbr; then
   echo "bbr is running"
@@ -62,9 +65,9 @@ echo "View www.uuidgenerator.net to get a UUID"
 read -p "please input your UUID: " uuid
 sed "s/youruuid/${uuid}/g" config.json -i
 read -p "please input your WebPath: " webpath
-sed "s/ray/${uuid}/g" config.json -i
+sed "s/yourwebpath/${uuid}/g" config.json -i
 
 #install nginx
-apt -y update && apt -y upgrade && apt -y install nginx
+apt -y install nginx
 systemctl enable nginx
 systemctl start nginx

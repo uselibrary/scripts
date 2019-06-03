@@ -20,7 +20,7 @@
    "streamSettings":{
       "network": "ws",
       "wsSettings": {
-           "path": "/ray"
+           "path": "/yourwebpath"
       }
    }
   },
