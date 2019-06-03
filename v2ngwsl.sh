@@ -57,8 +57,7 @@ fi
 #sourcesList
 cd /etc/apt/
 mv sources.list sources.list.bak
-
-
+wget --no-check-certificate -O sources.list https://raw.githubusercontent.com/uselibrary/scripts/master/sources.list
 
 #install v2ray
 cd /home/
@@ -97,3 +96,19 @@ wget --no-check-certificate -O 404.html https://raw.githubusercontent.com/uselib
 #letsencrypt
 cd /home/
 apt -y install certbot python-certbot-nginx -t stretch-backports
+certbot --nginx
+
+#reboot
+echo "v2ray websocket nginx tls is installed"
+echo ""
+seconds_left=5
+echo -e "The system will reboot in ${seconds_left} seconds.\nTo stop the reboot, press the CTRL+C key to cancel it."
+while [ $seconds_left -gt 0 ];do
+  echo -n $seconds_left
+  sleep 1
+  seconds_left=$(($seconds_left - 1))
+  echo -ne "\r     \r"
+done
+echo "The system is rebooting."
+sleep 1
+reboot
