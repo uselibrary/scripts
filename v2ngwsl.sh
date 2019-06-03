@@ -54,11 +54,19 @@ else
   fi
 fi
 
+#sourcesList
+cd /etc/apt/
+mv sources.list sources.list.bak
+
+
+
 #install v2ray
+cd /home/
 bash <(curl -L -s https://install.direct/go.sh)
 systemctl enable v2ray
 systemctl start v2ray
-#v2ray config
+#v2ray config/
+cd /etc/v2ray/
 mv config.json config.json.bak
 wget --no-check-certificate -O config.json https://raw.githubusercontent.com/uselibrary/scripts/master/config.json
 echo "View www.uuidgenerator.net to get a UUID"
@@ -66,6 +74,7 @@ read -p "please input your UUID: " uuid
 sed "s/youruuid/${uuid}/g" config.json -i
 read -p "please input your WebPath: " webpath
 sed "s/yourwebpath/${webpath}/g" config.json -i
+systemctl restart v2ray
 
 #install nginx
 apt -y install nginx
@@ -76,9 +85,15 @@ cd /etc/nginx/sites-available/
 mv default default.bak
 wget --no-check-certificate -O default https://raw.githubusercontent.com/uselibrary/scripts/master/default
 sed "s:location / {:location /${webpath}{:g" default -i
-
-
-
-
 read -p "please input yourdomain: " domain
 sed "s/server_name _;/server_name ${domain};/g" default -i
+systemctl restart nginx
+
+#404.html
+cd /var/www/
+rm rf 404.html
+wget --no-check-certificate -O 404.html https://raw.githubusercontent.com/uselibrary/scripts/master/404.html
+
+#letsencrypt
+cd /home/
+apt -y install certbot python-certbot-nginx -t stretch-backports
