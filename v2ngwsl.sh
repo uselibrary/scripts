@@ -65,9 +65,21 @@ echo "View www.uuidgenerator.net to get a UUID"
 read -p "please input your UUID: " uuid
 sed "s/youruuid/${uuid}/g" config.json -i
 read -p "please input your WebPath: " webpath
-sed "s/yourwebpath/${uuid}/g" config.json -i
+sed "s/yourwebpath/${webpath}/g" config.json -i
 
 #install nginx
 apt -y install nginx
 systemctl enable nginx
 systemctl start nginx
+#nginx config
+cd /etc/nginx/sites-available/
+mv default default.bak
+
+
+sed "s:location / {:location /${webpath}{:g" default -i
+
+
+
+
+read -p "please input yourdomain: " domain
+sed "s/server_name _;/server_name ${domain};/g" default -i

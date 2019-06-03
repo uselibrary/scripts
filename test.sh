@@ -82,9 +82,9 @@ fi
 
 
 
+try_files $uri $uri/ =404;
 
-
-
+sed "s:location / {:location /${webpath}{:g" default -i
 
 sed 's/要被替换的字符串/新的字符串/g'
 $ sed 's/test/mytest/g' example-----在整行范围内把test替换为mytest。
@@ -92,6 +92,13 @@ sed 's/b7c92134-ab1b-4bc0-b3ea-93b0bbbd5873/bbbbbbbb-ab1b-4bc0-b3ea-93b0bbbd5873
 
 read -p "please input your uuid: " uuid
 sed "s/b7c92134-ab1b-4bc0-b3ea-93b0bbbd5873/${uuid}/g" config.json -i
+
+
+/etc/nginx/sites-available/default
+
+
+server_name _;
+location / {
 
 
 
