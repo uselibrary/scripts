@@ -78,3 +78,50 @@ if [ -d "/etc/v2ray/"]; then
 else
   echo "NOOOOO"
 fi
+
+
+
+
+
+
+
+
+sed 's/要被替换的字符串/新的字符串/g'
+$ sed 's/test/mytest/g' example-----在整行范围内把test替换为mytest。
+sed 's/b7c92134-ab1b-4bc0-b3ea-93b0bbbd5873/bbbbbbbb-ab1b-4bc0-b3ea-93b0bbbd5873/g' config.json -i
+
+read -p "please input your uuid" uuid
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+sed 's/要被替换的字符串/新的字符串/g'
+$ sed 's/test/mytest/g' example-----在整行范围内把test替换为mytest。

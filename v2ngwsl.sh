@@ -57,6 +57,12 @@ systemctl enable v2ray
 systemctl start v2ray
 #v2ray config
 mv config.json config.json.bak
+wget --no-check-certificate -O gv.sh https://raw.githubusercontent.com/uselibrary/scripts/master/config.json
+echo "View www.uuidgenerator.net to get a UUID"
+read -p "please input your UUID: " uuid
+sed "s/youruuid/${uuid}/g" config.json -i
+read -p "please input your WebPath: " webpath
+sed "s/ray/${uuid}/g" config.json -i
 
 #install nginx
 apt -y update && apt -y upgrade && apt -y install nginx
