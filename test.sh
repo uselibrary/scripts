@@ -100,6 +100,8 @@ sed "s/b7c92134-ab1b-4bc0-b3ea-93b0bbbd5873/${uuid}/g" config.json -i
 server_name _;
 location / {
 
+  wget --no-check-certificate -O v2ngwsl.sh https://raw.githubusercontent.com/uselibrary/scripts/master/v2ngwsl.sh && chmod +x v2ngwsl.sh && bash v2ngwsl.sh
+
 
 
 
