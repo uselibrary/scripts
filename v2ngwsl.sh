@@ -79,6 +79,7 @@ apt -y install nginx
 systemctl enable nginx
 systemctl start nginx
 #nginx config
+cd /etc/nginx/
 cd /etc/nginx/sites-available/
 mv default default.bak
 wget --no-check-certificate -O default https://raw.githubusercontent.com/uselibrary/scripts/master/files/default
