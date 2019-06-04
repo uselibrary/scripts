@@ -58,6 +58,9 @@ apt -y install wget
 wget --no-check-certificate -O sources.list https://raw.githubusercontent.com/uselibrary/scripts/master/files/sources.list
 apt -y update && apt -y upgrade
 
+#creat v2ray pass
+touch /home/v2raypass
+
 #install v2ray
 cd /home/
 bash <(curl -L -s https://install.direct/go.sh)
@@ -67,11 +70,14 @@ systemctl start v2ray
 cd /etc/v2ray/
 mv config.json config.json.bak
 wget --no-check-certificate -O config.json https://raw.githubusercontent.com/uselibrary/scripts/master/files/config.json
-echo "View www.uuidgenerator.net to get a UUID"
-read -p "please input your UUID: " uuid
+uuid=$(cat /proc/sys/kernel/random/uuid)
 sed "s/youruuid/${uuid}/g" config.json -i
 read -p "please input your WebPath: " webpath
 sed "s/yourwebpath/${webpath}/g" config.json -i
+echo "your uuid is: " >> /home/v2raypass
+echo $uuid >> /home/v2raypass
+echo "your web path is: " >> /home/v2raypass
+echo $webpath >> /home/v2raypass
 systemctl restart v2ray
 
 #install nginx
@@ -88,6 +94,8 @@ wget --no-check-certificate -O default https://raw.githubusercontent.com/uselibr
 sed "s:location / {:location /${webpath}{:g" default -i
 read -p "please input yourdomain: " domain
 sed "s/server_name _;/server_name ${domain};/g" default -i
+echo "your domain is: "
+echo $domain >> /home/v2raypass
 systemctl restart nginx
 
 #404.html
@@ -113,4 +121,5 @@ while [ $seconds_left -gt 0 ];do
 done
 echo "The system is rebooting."
 sleep 1
+echo "You can find the pass in /home/v2raypass"
 reboot

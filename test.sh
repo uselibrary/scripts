@@ -107,7 +107,8 @@ location / {
 
 
 
-
+uuid=$(cat /proc/sys/kernel/random/uid)
+echo $uuid
 
 
 
