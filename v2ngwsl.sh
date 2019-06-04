@@ -80,6 +80,8 @@ systemctl enable nginx
 systemctl start nginx
 #nginx config
 cd /etc/nginx/
+mv nginx.conf nginx.conf.bak
+wget --no-check-certificate -O nginx.conf https://raw.githubusercontent.com/uselibrary/scripts/master/files/nginx.conf
 cd /etc/nginx/sites-available/
 mv default default.bak
 wget --no-check-certificate -O default https://raw.githubusercontent.com/uselibrary/scripts/master/files/default
