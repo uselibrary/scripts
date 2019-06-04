@@ -17,7 +17,7 @@ else
   sleep 1
   exit
 fi
-if dpkg -l | grep -Eqi "nginx|apache"; then
+if dpkg -l | grep -Eqi "nginx|apache|caddy"; then
   echo "System is modified"
   echo "Pure Debain 9 is needed"
   echo "***EXIT***"
@@ -31,9 +31,6 @@ if [ -d "/etc/v2ray/" ]; then
   sleep 1
   exit
 fi
-
-#update
-apt -y update && apt -y upgrade
 
 #satrt bbr
 if lsmod | grep -Eqi bbr; then
@@ -54,10 +51,12 @@ else
   fi
 fi
 
-#sourcesList
+#sources list
 cd /etc/apt/
 mv sources.list sources.list.bak
-wget --no-check-certificate -O sources.list https://raw.githubusercontent.com/uselibrary/scripts/master/sources.list
+apt -y install wget
+wget --no-check-certificate -O sources.list https://raw.githubusercontent.com/uselibrary/scripts/master/files/sources.list
+apt -y update && apt -y upgrade
 
 #install v2ray
 cd /home/
@@ -67,7 +66,7 @@ systemctl start v2ray
 #v2ray config/
 cd /etc/v2ray/
 mv config.json config.json.bak
-wget --no-check-certificate -O config.json https://raw.githubusercontent.com/uselibrary/scripts/master/config.json
+wget --no-check-certificate -O config.json https://raw.githubusercontent.com/uselibrary/scripts/master/files/config.json
 echo "View www.uuidgenerator.net to get a UUID"
 read -p "please input your UUID: " uuid
 sed "s/youruuid/${uuid}/g" config.json -i
@@ -82,7 +81,7 @@ systemctl start nginx
 #nginx config
 cd /etc/nginx/sites-available/
 mv default default.bak
-wget --no-check-certificate -O default https://raw.githubusercontent.com/uselibrary/scripts/master/default
+wget --no-check-certificate -O default https://raw.githubusercontent.com/uselibrary/scripts/master/files/default
 sed "s:location / {:location /${webpath}{:g" default -i
 read -p "please input yourdomain: " domain
 sed "s/server_name _;/server_name ${domain};/g" default -i
@@ -91,7 +90,7 @@ systemctl restart nginx
 #404.html
 cd /var/www/
 rm rf 404.html
-wget --no-check-certificate -O 404.html https://raw.githubusercontent.com/uselibrary/scripts/master/404.html
+wget --no-check-certificate -O 404.html https://raw.githubusercontent.com/uselibrary/scripts/master/files/404.html
 
 #letsencrypt
 cd /home/
