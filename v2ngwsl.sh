@@ -57,6 +57,7 @@ mv sources.list sources.list.bak
 apt -y install wget
 wget --no-check-certificate -O sources.list https://raw.githubusercontent.com/uselibrary/scripts/master/files/sources.list
 apt -y update && apt -y upgrade
+apt -y install curl
 
 #creat v2ray pass
 touch /home/v2raypass
