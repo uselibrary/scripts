@@ -111,15 +111,4 @@ certbot --nginx
 #reboot
 echo "v2ray websocket nginx tls is installed"
 echo ""
-seconds_left=5
-echo -e "The system will reboot in ${seconds_left} seconds.\nTo stop the reboot, press the CTRL+C key to cancel it."
-while [ $seconds_left -gt 0 ];do
-  echo -n $seconds_left
-  sleep 1
-  seconds_left=$(($seconds_left - 1))
-  echo -ne "\r     \r"
-done
-echo "The system is rebooting."
-sleep 1
-echo "You can find the pass in /home/v2raypass"
-reboot
+echo "It is recommended to reboot"
