@@ -57,7 +57,7 @@ mv sources.list sources.list.bak
 apt -y install wget
 wget --no-check-certificate -O sources.list https://raw.githubusercontent.com/uselibrary/scripts/master/files/sources.list
 apt -y update && apt -y upgrade
-apt -y install curl
+apt -y install curl unzip
 
 #creat v2ray pass
 touch /home/v2raypass
@@ -100,7 +100,7 @@ echo $domain >> /home/v2raypass
 systemctl restart nginx
 
 #404.html
-cd /var/www/
+cd /var/www/html
 rm -rf 404.html
 wget --no-check-certificate -O 404.html https://raw.githubusercontent.com/uselibrary/scripts/master/files/404.html
 
