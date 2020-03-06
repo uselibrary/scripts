@@ -101,7 +101,7 @@ systemctl restart nginx
 
 #404.html
 cd /var/www/
-rm rf 404.html
+rm -rf 404.html
 wget --no-check-certificate -O 404.html https://raw.githubusercontent.com/uselibrary/scripts/master/files/404.html
 
 #letsencrypt
