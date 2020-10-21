@@ -4,29 +4,29 @@ echo "    ################################################"
 echo "    #                                              #"
 echo "    #                 set up v2ngwsl               #"
 echo "    #                  https://pa.ci               #"
-echo "    #                   Version 0.1                #"
+echo "    #                  Version 0.1.1               #"
 echo "    ################################################"
 
-#check system debian 9
+#check system debian
 echo -e ""
-if cat /etc/*-release | grep -Eqi "debian gnu/linux 9"; then
-  echo "Debian 9"
+if cat /etc/*-release | grep -Eqi "debian gnu/linux"; then
+  echo "Debian"
 else
-  echo "Only Debain 9 is supported"
+  echo "Only Debain is supported"
   echo "***EXIT***"
   sleep 1
   exit
 fi
 if dpkg -l | grep -Eqi "nginx|apache|caddy"; then
   echo "System is modified"
-  echo "Pure Debain 9 is needed"
+  echo "Pure Debain is needed"
   echo "***EXIT***"
   sleep 1
   exit
 fi
 if [ -d "/etc/v2ray/" ]; then
   echo "System is modified"
-  echo "Pure Debain 9 is needed"
+  echo "Pure Debain is needed"
   echo "***EXIT***"
   sleep 1
   exit
