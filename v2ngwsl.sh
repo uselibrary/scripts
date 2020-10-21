@@ -9,10 +9,10 @@ echo "    ################################################"
 
 #check system debian
 echo -e ""
-if cat /etc/*-release | grep -Eqi "debian gnu/linux"; then
-  echo "Debian"
+if cat /etc/*-release | grep -Eqi "debian gnu/linux 10"; then
+  echo "Debian 10"
 else
-  echo "Only Debain is supported"
+  echo "Only Debain 10 is supported"
   echo "***EXIT***"
   sleep 1
   exit
@@ -64,7 +64,7 @@ touch /home/v2raypass
 
 #install v2ray
 cd /home/
-bash <(curl -L -s https://install.direct/go.sh)
+bash <(curl -L https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-release.sh)
 systemctl enable v2ray
 systemctl start v2ray
 #v2ray config/
@@ -105,8 +105,10 @@ rm -rf 404.html
 wget --no-check-certificate -O 404.html https://raw.githubusercontent.com/uselibrary/scripts/master/files/404.html
 
 #letsencrypt
-cd /home/
-apt -y install certbot python-certbot-nginx -t stretch-backports
+apt -y install snap
+snap install core
+snap install --classic certbot
+ln -s /snap/bin/certbot /usr/bin/certbot
 certbot --nginx
 
 #reboot
