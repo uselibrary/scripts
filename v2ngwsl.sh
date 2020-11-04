@@ -68,7 +68,7 @@ bash <(curl -L https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/
 systemctl enable v2ray
 systemctl start v2ray
 #v2ray config/
-cd /etc/v2ray/
+cd /usr/local/etc/v2ray/
 mv config.json config.json.bak
 wget --no-check-certificate -O config.json https://raw.githubusercontent.com/uselibrary/scripts/master/files/config.json
 uuid=$(cat /proc/sys/kernel/random/uuid)
