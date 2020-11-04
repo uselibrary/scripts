@@ -47,7 +47,7 @@ server {
 
 
 	location / {
-	  if ($http_upgrade != "websocket") { # WebSocket协商失败时返回404
+	  if ($http_upgrade != "websocket") {
 	    return 404;
     }
 	  proxy_redirect off;
