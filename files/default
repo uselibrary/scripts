@@ -47,6 +47,9 @@ server {
 
 
 	location / {
+	  if ($http_upgrade != "websocket") { # WebSocket协商失败时返回404
+	    return 404;
+    }
 	  proxy_redirect off;
 		proxy_intercept_errors on;
 	  proxy_pass http://127.0.0.1:10000;
@@ -58,10 +61,6 @@ server {
 	  # as directory, then fall back to displaying a 404.
 	  #try_files $uri $uri/ =404;
  }
- error_page 400 404 /404.html;
-   location = /404.html {
-     root /var/www/html;
-   }
 
 	# pass PHP scripts to FastCGI server
 	#

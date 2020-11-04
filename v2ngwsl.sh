@@ -84,17 +84,16 @@ systemctl restart v2ray
 #install nginx
 apt -y install nginx
 #nginx config
-# cd /etc/nginx/
-# mv nginx.conf nginx.conf.bak
-# wget --no-check-certificate -O nginx.conf https://raw.githubusercontent.com/uselibrary/scripts/master/files/nginx.conf
 cd /etc/nginx/sites-available/
-mv default default.bak
+rm default
 wget --no-check-certificate -O default https://raw.githubusercontent.com/uselibrary/scripts/master/files/default
 sed "s:location / {:location /${webpath}{:g" default -i
 read -p "please input yourdomain: " domain
 sed "s/server_name _;/server_name ${domain};/g" default -i
 echo "your domain is: "
 echo $domain >> /home/v2raypass
+rm /etc/nginx/sites-enabled/default
+ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/
 systemctl restart nginx
 
 #404.html
@@ -103,7 +102,7 @@ rm -rf 404.html
 wget --no-check-certificate -O 404.html https://raw.githubusercontent.com/uselibrary/scripts/master/files/404.html
 
 #letsencrypt
-apt -y install snap
+apt -y install snapd
 snap install core
 snap install --classic certbot
 ln -s /snap/bin/certbot /usr/bin/certbot
